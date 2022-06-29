@@ -1,0 +1,35 @@
+exports.up = function(knex, Promise) {
+    return knex.schema.createTable('users', table => {
+        table.engine('InnoDB')
+        table.charset('utf8mb4')
+        table.collate('utf8mb4_general_ci')
+        table.increments('id').primary()
+        table.integer('evento').notNull()
+        table.string('created_at').notNull()
+        table.string('updated_at')
+        table.string('status').notNull().default(0)
+        table.string('tkn_api')
+        table.string('name').notNull()
+        table.string('cpf').notNull().unique()
+        table.string('email').notNull().unique()
+        table.string('telefone')
+        table.string('password').notNull()
+        table.string('password_reset_token')
+        table.string('cliente').defaultTo('cliente')
+        table.string('dominio').defaultTo('dominio')
+        table.boolean('admin').notNull().defaultTo(0)
+        table.boolean('gestor').notNull().defaultTo(0)
+        table.boolean('multiCliente').notNull().defaultTo(0)
+        table.boolean('empresa').notNull().defaultTo(0).comment("Alterações nos dados da empresa")
+        table.boolean('cadastros').notNull().defaultTo(0).comment("Gestão de cadastros")
+        table.boolean('ged').notNull().defaultTo(0).comment("Gestão de ducumentos")
+        table.boolean('comercial').notNull().defaultTo(0).comment("Gestão do comercial")
+        table.boolean('pv').notNull().defaultTo(0).comment("Gestão de pós-vendas")
+        table.boolean('comissoes').notNull().defaultTo(0).comment("Gestão de comissões")
+        table.boolean('financeiro').notNull().defaultTo(0).comment("Gestão do financeiro")
+    })
+};
+
+exports.down = function(knex, Promise) {
+    return knex.schema.dropTable('users')
+};
